@@ -10,7 +10,6 @@ import (
 
 	"google.golang.org/grpc/connectivity"
 
-	pb "github.com/omec-project/upf-epc/pfcpiface/new_pb"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 	"github.com/wmnsk/go-pfcp/ie"
@@ -20,7 +19,6 @@ import (
 var newIP = flag.String("new", "localhost:10514", "NEW IP/port combo")
 
 type new struct {
-	client          pb.NEWControlClient
 	conn            *grpc.ClientConn
 	endMarkerSocket net.Conn
 	notifyNewSocket net.Conn
