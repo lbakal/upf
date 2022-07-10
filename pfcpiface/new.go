@@ -10,6 +10,7 @@ import (
 
 	"google.golang.org/grpc/connectivity"
 
+	pb "github.com/omec-project/upf-epc/pfcpiface/bess_pb"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 	"github.com/wmnsk/go-pfcp/ie"
@@ -19,6 +20,7 @@ import (
 var newIP = flag.String("new", "localhost:10514", "NEW IP/port combo")
 
 type new struct {
+	client          pb.BESSControlClient
 	conn            *grpc.ClientConn
 	endMarkerSocket net.Conn
 	notifyNewSocket net.Conn
@@ -124,6 +126,10 @@ func (b *new) SummaryLatencyJitter(uc *upfCollector, ch chan<- prometheus.Metric
 func (b *new) SessionStats(pc *PfcpNodeCollector, ch chan<- prometheus.Metric) (err error) {
 	log.Println("SessionStats")
 	return
+}
+
+func (b *new) PortStats(uc *upfCollector, ch chan<- prometheus.Metric) {
+	log.Println("PortStats")
 }
 
 // setUpfInfo is only called at pfcp-agent's startup
